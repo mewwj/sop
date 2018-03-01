@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sop.dao.SopMapper">
+  <resultMap id="BaseResultMap" type="com.sop.pojo.Sop">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="filename" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="xitong" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bumen" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="insertTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+<insert id="insert" parameterType="map">
+	insert into sop(FILENAME,BUMEN,XITONG,INSERTTIME) values (#{fileName},#{buMen},#{xiTong},now()) 
+</insert>
+<select id="selectByXiTongAndBuMen" parameterType="map" resultMap="BaseResultMap">
+	select * from sop 
+	<where>
+	<if test="buMen!=null and buMen !=''">
+		and BUMEN=#{buMen}
+	</if>
+	<if test="xiTong!=null and xiTong !=''">
+		and XITONG=#{xiTong}
+	</if>
+	</where>
+</select>
+</mapper>
